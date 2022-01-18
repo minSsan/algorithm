@@ -7,11 +7,19 @@ using namespace std;
 vector<string> split(string str, char delimiter);
 
 int main() {
-    int T;
-    cin >> T;
-    
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
+
+    int T;
+    string input;
+    vector<string> temp;
+    cin >> T;
+
+    for (int i = 0; i < T; ++i) {
+        cin >> input;
+        temp = split(input, ',');
+        cout << stoi(temp[0]) + stoi(temp[1]) << '\n';
+    }
 
     return 0;
 }
