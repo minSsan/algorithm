@@ -20,34 +20,38 @@ int main() {
 
     int arrow_idx = 0;
     int complete_count = 0;
-    int result_complete_count = 0;
+    string result = "";
 
     for (int i = 1; i <= N; ++i) {
         if (i != sequence[arrow_idx]) {
             if (i < sequence[arrow_idx]) {
                 seq_stack.push(i);
-                cout << "+\n";
+                result += "+\n";
             }
             else {
-                cout << "NO\n";
-                break ;
+                result = "NO\n";
+                cout << result;
+                return 0;
             }
         }
         else {
             while (seq_stack.size() != complete_count) {
                 seq_stack.pop();
-                cout << "-\n";
+                result += "-\n";
             }
             seq_stack.push(i);
-            cout << "+\n";
+            result += "+\n";
             arrow_idx++;
             complete_count++;
         }
     }
     
-    while (complete_count--) {
+    while (!seq_stack.empty()) {
         seq_stack.pop();
-        cout << "-\n";
+        result += "-\n";
     }
+
+    cout << result;
+
     return 0;
 }
