@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     int n;
     cin >> n;
-    vector<int> count(n+1, 0);
+    vector<int> count(1000001, 0);
     vector<int> result(n, -1);
     vector<int> input;
 
@@ -19,10 +19,7 @@ int main() {
         count[current]++;
         input.push_back(current);
     }
-    // s: 0 1 6
-    // result
-    // 0 1 2 3 4 5 6 7 
-    // -1 -1 1 2 2 1 -1 -1
+    
     for (int i = 0; i < n; ++i) {
         current = input[i];
 
