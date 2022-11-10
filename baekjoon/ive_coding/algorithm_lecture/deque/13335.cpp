@@ -17,29 +17,25 @@ int main() {
         inputs.push_back(weight);
     }
 
-    int index = 0;
-    int sum, result = 0;
-    while (index < n) {
-        weight = inputs[index];
+    bridge.push_back(inputs[0]);
+    int index = 1;
+    int result = 1;
+    int sum = inputs[0];
+
+    while (!bridge.empty() && sum != 0) {
+        result++;
         if (bridge.size() == w) {
             sum -= bridge.front();
             bridge.pop_front();
         }
 
-        if (sum + weight <= l) {
-            sum += weight;
-            bridge.push_back(weight);
-            ++index;
+        if (index < n && sum + inputs[index] <= l) {
+            bridge.push_back(inputs[index]);
+            sum += inputs[index];
+            index++;
         } else {
             bridge.push_back(0);
         }
-
-        ++result;
-    }
-
-    while (!bridge.empty()) {
-        bridge.pop_front();
-        result++;
     }
 
     cout << result << '\n';
