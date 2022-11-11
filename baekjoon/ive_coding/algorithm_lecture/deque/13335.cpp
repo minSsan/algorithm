@@ -17,17 +17,17 @@ int main() {
         inputs.push_back(weight);
     }
 
-    bridge.push_back(inputs[0]);
-    int index = 1;
-    int result = 1;
-    int sum = inputs[0];
+    for (int i = 0; i < w - 1; ++i) {
+        bridge.push_back(0);
+    }
 
-    while (!bridge.empty() && sum != 0) {
+    bridge.push_back(inputs[0]);
+    int result = 1, index = 1, sum = inputs[0];
+
+    while (sum != 0) {
         result++;
-        if (bridge.size() == w) {
-            sum -= bridge.front();
-            bridge.pop_front();
-        }
+        sum -= bridge.front();
+        bridge.pop_front();
 
         if (index < n && sum + inputs[index] <= l) {
             bridge.push_back(inputs[index]);
