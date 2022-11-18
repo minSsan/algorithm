@@ -11,38 +11,43 @@ int main() {
     int n;
     cin >> n;
 
-    priority_queue<int, vector<int>, greater<int>> pq; // 큰부분 -> 최소힙
-    priority_queue<int> pq2; // 작은부분 -> 최대힙
+    priority_queue<int, vector<int>, greater<int>> pq_bigger; // 큰부분 -> 최소힙
+    priority_queue<int> pq_smaller; // 작은부분 -> 최대힙
     int input_num;
 
     for (int i = 1; i <= n; ++i) {
         cin >> input_num;
         
+        // * 초기 값 세팅 :: pq_bigger, pq_smaller 결정하기
+        // ? pq_bigger, pq_smaller 내부 요소 집합은 요소가 2개 이상일 때부터 결정 가능
         if (i == 1) {
-            pq2.push(input_num);
+            pq_smaller.push(input_num);
         } else if (i == 2) {
-            if (pq2.top() < input_num) {
-                pq.push(input_num);
+            if (pq_smaller.top() < input_num) {
+                pq_bigger.push(input_num);
             } else {
-                pq.push(pq2.top());
-                pq2.pop();
-                pq2.push(input_num);
+                pq_bigger.push(pq_smaller.top());
+                pq_smaller.pop();
+                pq_smaller.push(input_num);
             }
-        } else if (input_num < pq.top()) {
-            pq2.push(input_num);
+        } 
+        // * pq_bigger과 pq_smaller가 결정된 상태일 때 - 입력받은 숫자를 적절한 위치에 push
+        else if (input_num < pq_bigger.top()) {
+            pq_smaller.push(input_num);
         }  else {
-            pq.push(input_num);
+            pq_bigger.push(input_num);
         }
 
-        if (pq2.size() < pq.size()) {
-            pq2.push(pq.top());
-            pq.pop();
-        } else if (pq2.size() - pq.size() > 1) {
-            pq.push(pq2.top());
-            pq2.pop();
+        // * 가운데 위치한 숫자 찾기
+        if (pq_smaller.size() < pq_bigger.size()) {
+            pq_smaller.push(pq_bigger.top());
+            pq_bigger.pop();
+        } else if (pq_smaller.size() - pq_bigger.size() > 1) {
+            pq_bigger.push(pq_smaller.top());
+            pq_smaller.pop();
         }
 
-        cout << pq2.top() << '\n';
+        cout << pq_smaller.top() << '\n';
     }
 
     return 0;
@@ -57,7 +62,7 @@ int main() {
 // pq (최소힙)
 // 5 10
 
-// pq2 (최대힙)
+// pq_smaller (최대힙)
 // -99 1 2
 
 // 1 1 2 2 
