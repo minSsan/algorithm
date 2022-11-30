@@ -16,22 +16,20 @@ int main() {
 
     int count = 0;
 
-    int start = 0, end = 1, sum_result = nums[start] + nums[end];
+    int start = 0, end = 0, sum_result = nums[0];
 
     while (start < n) {
         if (sum_result == m) {
             count++;
-            
-            sum_result -= nums[start]; start++; 
-            end++;
-            // TODO: 이어서 작성
-            
+            end++; 
             if (end == n) break;
+            sum_result += nums[end];
         } else if (sum_result < m) {
             end++;
             if (end == n) break;
+            sum_result += nums[end];
         } else {
-            start++;
+            sum_result -= nums[start]; start++;
         }
     }
 
