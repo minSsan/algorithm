@@ -19,8 +19,6 @@ int main() {
         q.push(i);
     }
 
-    int temp;
-
     while (!q.empty()) {
         for (int i = 0; i < k-1; ++i) {
             q.push(q.front());
