@@ -11,14 +11,23 @@ int node_size;
 int skill_size;
 
 int solution(int* node_list, int* skill_list) { 
-    int skill, current_node, result = 1;
+    int skill, current_node, result = 1; // 부모 노드 포함한 상태에서 시작
+    vector<int> visited(node_size, 0);
+    visited[0] = 1; // 부모 노드 포함한 상태에서 시작
+
     for (int i = 0; i < skill_size; ++i) {
         skill = skill_list[i]; 
 
+        visited[skill] = 1; result++; 
         current_node = node_list[skill];
-        result++; 
+
         while (current_node != 0) { 
-            result++; 
+            if (visited[current_node] == 0) {
+                result++; 
+                visited[current_node] = 1;
+            } else { // 이미 방문한 노드부터는 count하지 않아도 된다.
+                break;
+            }
             current_node = node_list[current_node]; 
         }
     }
