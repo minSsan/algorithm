@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// TODO: 이차원 리스트로 표현하는 방법으로도 한번 풀어보기
+// TODO: 인접행렬(이차원 리스트)로 표현하는 방법으로도 한번 풀어보기
 // ex) u -> v : connects[u][v] = 1, connects[v][u] = 1
 
 vector<int> connects[1001];
