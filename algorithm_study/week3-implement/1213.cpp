@@ -13,7 +13,7 @@ int main() {
         cnt[c - 'A']++;
     }
 
-    string center = "";
+    char center;
     string front;
     string back;
     bool exist = true;
@@ -27,7 +27,7 @@ int main() {
                 back = char(i + 'A') + back;
                 cnt[i] -= 2;
             }
-        } else if (cnt[i] % 2 == 1 && center == "") {
+        } else if (cnt[i] % 2 == 1 && !center) {
             center = char(i + 'A');
             cnt[i]--;
             while (cnt[i] != 0) {
