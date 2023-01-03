@@ -4,8 +4,8 @@
 using namespace std;
 
 int main() {
-    int dx[6] = {-2, -2, 0, 0, 2, 2};
-    int dy[6] = {-1, 1, -2, 2, -1, 1};
+    int dy[6] = {-2, -2, 0, 0, 2, 2};
+    int dx[6] = {-1, 1, -2, 2, -1, 1};
 
     int n;
     cin >> n;
@@ -21,9 +21,11 @@ int main() {
     queue<int> cnt_q;
 
     q.push({row, col});
-    cnt_q.push(1);
+    cnt_q.push(0);
 
     int count, next_row, next_col;
+
+    priority_queue<int, vector<int>, greater<int>> pq;
     
     while (!q.empty()) {
         row = q.front().first; col = q.front().second;
@@ -31,7 +33,10 @@ int main() {
         count = cnt_q.front();
         cnt_q.pop();
 
-        if (row == end_row && col == end_col) break;
+        if (row == end_row && col == end_col) {
+            cout << count << '\n';
+            return 0;
+        }
 
         if (!visited[row][col]) {
             visited[row][col] = true;
@@ -47,7 +52,7 @@ int main() {
         }
     }
 
-    cout << count << '\n';
+    cout << -1 << '\n';
 
     return 0;
 }
