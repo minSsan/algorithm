@@ -24,8 +24,6 @@ int main() {
     cnt_q.push(0);
 
     int count, next_row, next_col;
-
-    priority_queue<int, vector<int>, greater<int>> pq;
     
     while (!q.empty()) {
         row = q.front().first; col = q.front().second;
