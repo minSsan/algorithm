@@ -36,16 +36,13 @@ int main() {
             return 0;
         }
 
-        if (!visited[row][col]) {
-            visited[row][col] = true;
-
-            for (int i = 0; i < 6; ++i) {
-                next_row = row + dy[i];
-                next_col = col + dx[i];
-                if ((next_row >= 0 && next_row < n && next_col >= 0 && next_col < n) && !visited[next_row][next_col]) {
-                    q.push({next_row, next_col});
-                    cnt_q.push(count + 1);
-                }
+        for (int i = 0; i < 6; ++i) {
+            next_row = row + dy[i];
+            next_col = col + dx[i];
+            if ((next_row >= 0 && next_row < n && next_col >= 0 && next_col < n) && !visited[next_row][next_col]) {
+                visited[next_row][next_col] = true;
+                q.push({next_row, next_col});
+                cnt_q.push(count + 1);
             }
         }
     }
