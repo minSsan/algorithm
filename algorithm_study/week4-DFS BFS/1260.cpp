@@ -9,11 +9,40 @@ vector<int> graph[1001];
 int visited[1001];
 
 void dfs(int now) {
+    cout << now << ' ';
+    visited[now] = 1;
+    
     for (int i = 0; i < graph[now].size(); ++i) {
         if (visited[graph[now][i]] == 0) {
-            visited[graph[now][i]] = 1;
-            cout << graph[now][i] << ' ';
             dfs(graph[now][i]);
+        }
+    }
+}
+
+void bfs(int start) {
+    int visited[1001] = {0};
+    queue<int> q;
+
+    visited[start] = 1;
+    cout << start << ' ';
+
+    for (int i = 0; i < graph[start].size(); ++i) {
+        q.push(graph[start][i]);
+    }
+
+    while (!q.empty()) {
+        int now = q.front();
+        q.pop();
+
+        if (visited[now] == 0) {
+            cout << now << ' ';
+            visited[now] = 1;
+            
+            for (int i = 0; i < graph[now].size(); ++i) {
+                if (visited[graph[now][i]] == 0) {
+                    q.push(graph[now][i]);
+                }
+            }
         }
     }
 }
@@ -35,42 +64,12 @@ int main() {
     }
 
     // * DFS ------------------
-    visited[v] = 1;
-    cout << v << ' ';
-    for (int i = 0; i < graph[v].size(); ++i) {
-        if (visited[graph[v][i]] == 0) {
-            visited[graph[v][i]] = 1;
-            cout << graph[v][i] << ' ';
-            dfs(graph[v][i]);
-        }
-    }
-    
+    dfs(v); 
     cout << '\n';
     // * ----------------------
 
     // * BFS ------------------
-    int bfs_visited[1001] = {0};
-    queue<int> q;
-    int now = v;
-
-    q.push(now);
-
-    while (!q.empty()) {
-        now = q.front();
-        q.pop();
-        
-        if (bfs_visited[now] == 0) {
-            bfs_visited[now] = 1;
-            cout << now << ' ';
-
-            for (int i = 0; i < graph[now].size(); ++i) {
-                if (bfs_visited[graph[now][i]] == 0) {
-                    q.push(graph[now][i]);
-                }
-            }
-        }
-    }
-
+    bfs(v);
     cout << '\n';
     // * ----------------------
 
