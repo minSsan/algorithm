@@ -3,91 +3,79 @@
 
 using namespace std;
 
+int n;
+char grid[101][101];
+bool visited[100][100];
+
 int dx[4] = {0, 0, -1, 1};
 int dy[4] = {-1, 1, 0, 0};
 
-int n;
+void bfs(int start_row, int start_col) {
+    queue<pair<int,int>> q;
+    q.push({start_row, start_col});
 
-int bfs(char (*grid)[100], int n) {
-    bool visited[100][100] = {false};
-    int visited_cnt = 0;
-    int cnt = 0;
+    char color = grid[start_row][start_col];
 
-    int row = 0, col = 0;
-    int next_row, next_col;
+    while (!q.empty()) {
+        int row = q.front().first;
+        int col = q.front().second;
+        q.pop();
 
-    queue<pair<int, int>> q;
-    q.push({row, col});
-
-    char color;
-
-    while (visited_cnt < n * n) {
-        while (!q.empty()) {
-            row = q.front().first; col = q.front().second;
-            q.pop();
-            
-            color = grid[row][col];
-
-            if (!visited[row][col]) {
-                visited[row][col] = true;
-                visited_cnt++;
-
-                for (int i = 0; i < 4; ++i) {
-                    next_row = row + dy[i];
-                    next_col = col + dx[i];
-
-                    if ((next_row >= 0 && next_row < n && next_col >= 0 && next_col < n) && !visited[next_row][next_col] && grid[next_row][next_col] == color) {
-                        q.push({next_row, next_col});
-                    }
+        if (!visited[row][col]) {
+            visited[row][col] = true;
+            for (int i = 0; i < 4; ++i) {
+                int next_row = row + dy[i];
+                int next_col = col + dx[i];
+                if ((next_row >= 0 && next_row < n && next_col >= 0 && next_col < n) && !visited[next_row][next_col] && grid[next_row][next_col] == color) {
+                    q.push({next_row, next_col});
                 }
             }
-        }
-
-        cnt++;
-
-        bool flag = false;
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (!visited[i][j]) {
-                    q.push({i, j});
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) break;
         }
     }
-
-
-    return cnt;
 }
 
 int main() {
     cin >> n;
 
-    char grid[100][100];
-    char abnormal_grid[100][100];
+    int cnt = 0;
 
-    // ? 정상인 인지 색상표
     for (int i = 0; i < n; ++i) {
         cin >> grid[i];
     }
 
-    // ? 적록색맹 인지 색상표
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
+            if (!visited[i][j]) {
+                bfs(i, j);
+                cnt++;
+            }
+
             if (grid[i][j] == 'G') {
-                abnormal_grid[i][j] = 'R';
-            } else {
-                abnormal_grid[i][j] = grid[i][j];
+                grid[i][j] = 'R';
             }
         }
     }
 
-    
-    cout << bfs(grid, n) << ' ';
+    cout << cnt << ' ';
 
-    cout << bfs(abnormal_grid, n) << '\n';
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            visited[i][j] = false;
+        }
+    }
+
+    cnt = 0;
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (!visited[i][j]) {
+                bfs(i, j);
+                cnt++;
+            }
+        }
+    }
+
+    cout << cnt << '\n';
 
     return 0;
 }
