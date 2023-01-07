@@ -34,13 +34,13 @@ int main() {
     int row, col;
     int next_row, next_col;
 
-    while (!temp_q.empty() && cnt != raw_cnt) {
+    while (!temp_q.empty() && cnt != raw_cnt) { // 다음날 살펴볼 토마토가 있거나, 익지 않았던 토마토가 모두 익을 때까지 반복
         while (!temp_q.empty()) {
-            q.push({temp_q.front().first, temp_q.front().second});
+            q.push({temp_q.front().first, temp_q.front().second}); // 오늘 살펴볼 토마토 목록에 옮기기
             temp_q.pop();
         }
 
-        while (!q.empty()) {
+        while (!q.empty()) { // 익은 토마토를 모두 살펴볼 때까지
             row = q.front().first;
             col = q.front().second;
             q.pop();
@@ -48,15 +48,16 @@ int main() {
             for (int i = 0; i < 4; ++i) {
                 next_row = row + dy[i];
                 next_col = col + dx[i];
+                // 익은 토마토와 인접한 토마토가 아직 익지 않았다면
                 if ((next_row >= 0 && next_row < n && next_col >= 0 && next_col < m) && box[next_row][next_col] == 0) {
-                    temp_q.push({next_row, next_col});
-                    box[next_row][next_col] = 1;
+                    temp_q.push({next_row, next_col}); // 다음날 살펴볼 토마토 목록에 추가
+                    box[next_row][next_col] = 1; // 토마토가 익음
                     cnt++;
                 }
             }
         }
 
-        day++;
+        day++; // 날이 1 증가
 
     }
 
