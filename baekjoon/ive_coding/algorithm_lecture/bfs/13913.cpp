@@ -5,45 +5,36 @@
 
 using namespace std;
 
-queue<deque<int>> q;
+deque<int> dq;
 
-bool visited[100001];
 const int MAX = 100000;
+int prev_loc[100001]; // 인덱스 값의 위치를 방문하기 전에 거쳐온 위치를 저장
 
-deque<int> bfs(int start, int end) {
-    visited[start] = true;
-    deque<int> route;
-    route.push_back(start);
-    q.push(route);
+void bfs(int start, int end) {
+    prev_loc[start] = -1;
+    dq.push_back(start);
 
-    while (!q.empty()) {
-        route = q.front();
-        int now = route.back();
-        q.pop();
+    while (!dq.empty()) {
+        int now = dq.front();
+        dq.pop_front();
 
         if (now == end) {
-            return route;
+            return ;
         }
 
-        if (now + 1 <= MAX && !visited[now + 1]) {
-            visited[now + 1] = true;
-            route.push_back(now + 1);
-            q.push(route);
-            route.pop_back();
+        if (now + 1 <= MAX && prev_loc[now + 1] == 0) {
+            prev_loc[now + 1] = now;
+            dq.push_back(now + 1);
         }
 
-        if (now - 1 >= 0 && !visited[now - 1]) {
-            visited[now - 1] = true;
-            route.push_back(now - 1);
-            q.push(route);
-            route.pop_back();
+        if (now - 1 >= 0 && prev_loc[now - 1] == 0) {
+            prev_loc[now - 1] = now;
+            dq.push_back(now - 1);
         }
 
-        if (2 * now <= MAX && !visited[2 * now]) {
-            visited[2 * now] = true;
-            route.push_back(2 * now);
-            q.push(route);
-            route.pop_back();
+        if (2 * now <= MAX && prev_loc[2 * now] == 0) {
+            prev_loc[2 * now] = now;
+            dq.push_back(2 * now);
         }
     }
 }
@@ -52,14 +43,25 @@ int main() {
     int n, k;
     cin >> n >> k;
 
-    deque<int> result;
+    bfs(n, k);
 
-    result = bfs(n, k);
+    while (!dq.empty()) {
+        dq.pop_back();
+    }
 
-    cout << result.size() - 1 << '\n';
+    int index = k;
+    int cnt = 0;
+    while (index != -1) {
+        cnt++;
+        dq.push_front(index);
+        index = prev_loc[index];
+    }
 
-    for (int i = 0; i < result.size(); ++i) {
-        cout << result[i] << ' ';
+    cout << --cnt << '\n';
+    
+    while (!dq.empty()) {
+        cout << dq.front() << ' ';
+        dq.pop_front();
     }
 
     cout << '\n';
