@@ -53,18 +53,6 @@ int main() {
         if (current_odds > z) { // z보다 큰 승률이 나왔을 때
             min_cnt = mid;
             end = mid - 1;
-            // if (current_odds <= min_odds) { // 현재까지의 최소 승률보다 작거나 같을 때
-            //     min_odds = current_odds; // 최소 승률을 갱신
-            //     if (mid < min_cnt) { // 현재 이긴 횟수가 최소 이긴 횟수보다 작을 때
-            //         min_cnt = mid;
-            //     }
-            // }
-
-            // if (current_odds >= min_odds) {
-            //     end = mid - 1;
-            // } else {
-            //     start = mid + 1;
-            // }
         } else { // z랑 동일한 승률이 나왔을 때 -> 별도의 작업 필요 없이 재탐색
             start = mid + 1;
         }
