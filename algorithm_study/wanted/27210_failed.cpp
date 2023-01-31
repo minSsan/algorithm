@@ -55,11 +55,12 @@ int main() {
     // ? 현재에는 누적 합이 max_sum보다 작을지 몰라도, 나중에 합이 더해지면서 max_sum보다 커질 수도 있다 (ex. 5 -4 3 -3 7) -> tmp에 저장해두기 
     int tmp = 0; // max_sum에 아직 반영되지 않은 값의 총합
     
-    int max_sum = 0, current_sum; // 현재까지의 최대 합, 이전 값 + 현재 값까지 반영한 누적 합(= 최대 합과 비교해야 할 값)
+    // 5 -7 4 -2 6
+    int max_sum = 0, current_sum; // 최대 합, 최대 합에 현재 값까지 더한 값
     for (int i = 0; i < cnt.size(); ++i) {
         if (i % 2 == 0) {
             current_sum = max_sum + tmp + cnt[i];
-            // * 1. 현재 값까지의 누적 합이 최대 누적 합보다 큰 경우 -> 누적 합 갱신, tmp 초기화
+            // * 1. 현재 값까지의 누적 합이 최대 누적 합보다 큰 경우 -> 최대 누적 합 갱신, tmp 초기화
             // * 2. 현재 값 자체가 최대 누적 합보다 큰 경우 -> 누적 합을 현재 값으로 초기화 (현재 값부터 다시), tmp 초기화
             // * 3. 현재 값도 최대 누적보다 작고, 현재 값까지의 누적 합도 최대 누적보다 작은 경우 -> 누적 합 유지, tmp 갱신
             if (current_sum >= max_sum) {
@@ -76,7 +77,7 @@ int main() {
         }
     }
 
-    result = max_sum;
+    result = max(max_sum, current_sum);
 
     // * test code ------------
     // cout << "result: " << result << '\n';
