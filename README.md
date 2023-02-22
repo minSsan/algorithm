@@ -1,10 +1,12 @@
 # 알고리즘
+> 레파지토리에는 제가 알고리즘 문제풀이 과정에 작성한 `코드` | `설명`을 기록합니다.
 
-> 효율적인 코드 작성을 위해 알고리즘을 하나씩 공부해나가고 있습니다.
->
-> 해당 레파지토리에는 제가 알고리즘 문제풀이 과정에 작성한 `코드` | `설명`을 기록합니다.
+# solved.ac & baekjoon judge
 
-<br>
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=msp1125)](https://solved.ac/msp1125)
+
+[스터디 기록 - 개인 노션](https://flicker-acai-36a.notion.site/00b489a77fa546f48e47adeeeaaba055)
+
 
 # Commit Messages
 
@@ -29,13 +31,3 @@
 ## ✒️ Solution
 
 **문제풀이 과정에 대한 설명**을 작성하였음을 의미합니다.
-
-<br>
-
-# solved.ac & baekjoon judge
-
-[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=msp1125)](https://solved.ac/msp1125)
-
-[백준](https://www.acmicpc.net/user/msp1125)
-
-[해설 - 개인 노션](https://flicker-acai-36a.notion.site/00b489a77fa546f48e47adeeeaaba055)
