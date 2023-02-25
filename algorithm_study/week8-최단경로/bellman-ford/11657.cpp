@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// 버스 노선
 struct node
 {
     int start;
