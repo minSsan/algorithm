@@ -90,6 +90,11 @@ int main() {
         available[num] = false;
     }
 
+    if (m == 10) {
+        cout << abs(n - 100) << '\n';
+        return 0;
+    }
+
     int result1 = abs(n - 100);
 
     bfs(n);
