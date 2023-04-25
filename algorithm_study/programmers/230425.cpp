@@ -16,12 +16,10 @@ using namespace std;
 // ? sum1(10) > sum2(6) - 2
 // ? sum1(8) == sum2(8) - 3
 
-// * 원소가 0개인지 확인 필요.
-
 int solution(vector<int> queue1, vector<int> queue2) {
     int answer = 0;
     
-    int max_cnt = queue1.size() + queue2.size();
+    int max_cnt = 2 * (queue1.size() + queue2.size()); // 다시 원상복귀 될 때까지
     
     queue<int> q1, q2;
     long long q1_sum = 0, q2_sum = 0;
