@@ -22,7 +22,7 @@ int find(int n) {
 // ? parent = [1, 1, 1, 3] <- parent[3] = parent[2]
 // ? 3-4(2), 1-2(3), 2-3(4)
 // ? {3, 4, 1, 2}
-// 두 숫자를 같은 그룹으로 묶을 때, 더 작은 parent를 부모로 설정한다.
+// 두 숫자를 같은 그룹으로 묶을 때, 둘 중 더 작은 부모를 부모로 설정한다.
 void _union(int a, int b) {
     int a_parent = find(a);
     int b_parent = find(b);
