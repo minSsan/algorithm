@@ -23,9 +23,9 @@ int total, cnt;
 queue<node> q;
 
 // 상 - 하 - 좌 - 우 - 위 - 아래
-const int dr[6] = {-1, 1, 0, 0, 0, 0};
-const int dc[6] = {0, 0, -1, 1, 0, 0};
-const int dh[6] = {0, 0, 0, 0, -1, 1};
+const int dr[DIRECTION] = {-1, 1, 0, 0, 0, 0};
+const int dc[DIRECTION] = {0, 0, -1, 1, 0, 0};
+const int dh[DIRECTION] = {0, 0, 0, 0, -1, 1};
 
 bool is_in_area(int r, int c, int h);
 int current_date;
