@@ -1,5 +1,4 @@
 #include <iostream>
-#include <queue>
 
 #define NORTH 0
 #define EAST 1
@@ -11,11 +10,10 @@ using namespace std;
 short n, m;
 short graph[50][50];
 bool clean[50][50];
-short start_row, start_col;
 short current_row, current_col;
 short direction;
 short cnt;
-queue<pair<short, short>> dirty;
+short dirty;
 short dr[4] = {-1, 1, 0, 0};
 short dc[4] = {0, 0, -1, 1};
 short next_row, next_col;
@@ -103,12 +101,12 @@ void robot() {
         for (int i = 0; i < 4; ++i) {
             next_row = current_row + dr[i]; next_col = current_col + dc[i];
             if (not_clean(next_row, next_col)) {
-                dirty.push({next_row, next_col});
+                dirty++;
             }
         }
 
         // 청소할 수 있는 칸이 없는 경우
-        if (dirty.empty()) {
+        if (dirty == 0) {
             if (!move_back()) { // 후진 가능 검사
                 break;
             }
@@ -119,9 +117,7 @@ void robot() {
             move_front();
         }
         
-        while (!dirty.empty()) {
-            dirty.pop();
-        }
+        dirty = 0;
     }
     
 }
