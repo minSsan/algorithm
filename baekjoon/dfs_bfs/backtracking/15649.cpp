@@ -9,7 +9,7 @@ short n, m;
 bool visited[9];
 vector<short> result;
 
-void dfs(short a, short len) {
+void dfs(short len) {
     if (len == m) {
         for (int i = 0; i < result.size(); ++i) {
             cout << result[i] << ' ';
@@ -22,7 +22,7 @@ void dfs(short a, short len) {
         if (!visited[i] && len+1 <= m) {
             visited[i] = true;
             result.push_back(i);
-            dfs(i, len+1);
+            dfs(len+1);
             visited[i] = false;
             result.pop_back();
         }
@@ -36,7 +36,7 @@ int main() {
 
     cin >> n >> m; // 4 2
 
-    dfs(1, 0);
+    dfs(0);
 
     return 0;
 }
