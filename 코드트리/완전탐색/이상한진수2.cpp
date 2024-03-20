@@ -2,6 +2,7 @@
 #include <string>
 #include <climits>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -14,13 +15,8 @@ int zerone_to_10(string s) {
         // i번째 원소에는 2의 i승을 곱하면 된다.
         if (s[i] == '0') continue;
 
-        // 1. 2의 i승 구하기
-        int mul = 1;
-        for (int j = 0; j < i; ++j) {
-            mul *= 2;
-        }
-
-        result += mul;
+        // 2의 i승 더하기
+        result += pow(2, i);
     }
     return result;
 }
