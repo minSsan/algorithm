@@ -11,7 +11,7 @@
   - [첫 번째 코드](<https://github.com/minSsan/algorithm/blob/main/%EC%82%BC%EC%84%B1SW%EC%97%AD%EB%9F%89%EA%B8%B0%EC%B6%9C/240914/%5B24.09.14%5D2020%ED%95%98%EB%B0%98%EA%B8%B0(%EC%98%A4%ED%9B%841%EB%B2%88).cpp>) 의 경우, 각 방향에 대해 모두 분기문으로 처리하여 코드가 매우 길어지고, 그만큼 실수가 잦았음.
   - 이를 개선하기 위해 [두 번째 코드](<https://github.com/minSsan/algorithm/blob/main/%EC%82%BC%EC%84%B1SW%EC%97%AD%EB%9F%89%EA%B8%B0%EC%B6%9C/240914/%5B24.09.14%5D2020%ED%95%98%EB%B0%98%EA%B8%B0(%EC%98%A4%ED%9B%841%EB%B2%88)-2.cpp>)를 다시 작성하였음.
 
-- 문제 이해 부족
+- 문제 이해 부족 (결정적 실수!)
 
   - `"α로 이동하는 모래의 양은 비율이 적혀있는 칸으로 이동하지 않은 남은 모래의 양과 같다."` 독해 실수
 
