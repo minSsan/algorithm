@@ -1,7 +1,7 @@
 ## 문제 정보
 
 > 삼성 SW 역량 테스트 - 2020년 하반기 오후 2번  
-> [백준 20057번](https://www.acmicpc.net/problem/20058)
+> [백준 20058번](https://www.acmicpc.net/problem/20058)
 > 시뮬레이션, 구현, BFS/DFS
 
 ## 실수했던 부분
