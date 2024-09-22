@@ -120,17 +120,6 @@ void blizard(int d, int s) {
     update_grid();
 }
 
-void bomb_bead(list<int>::iterator start, int num) {
-    int cnt = 0;
-    while (*start == num) {
-        ++cnt;
-        bombs[num]++;
-        start = beads.erase(start);
-    }
-    
-    resize_beads();
-}
-
 bool is_exist() {
     list<int>::iterator iter;
     int same_num = beads.front();
