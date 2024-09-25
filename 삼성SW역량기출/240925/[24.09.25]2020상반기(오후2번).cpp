@@ -21,8 +21,8 @@ int dist[20][20]; // 현재 택시 위치를 기준으로, i행 j열까지 이�
 bool visited[20][20];
 int success_cnt;
 
-int dr[5] = {0, -1, 1, 0, 0};
-int dc[5] = {0, 0, 0, -1, 1};
+int dr[4] = {-1, 1, 0, 0};
+int dc[4] = {0, 0, -1, 1};
 
 struct client_info {
     int num;
@@ -53,13 +53,12 @@ client_info get_client() {
     queue<pair<int, int>> q;
 
     q.push({taxi_pos.first, taxi_pos.second});
+    visited[taxi_pos.first][taxi_pos.second] = true;
 
     //* 2. 탐색
     while (!q.empty()) {
         int row = q.front().first, col = q.front().second;
-
         // cout << "{ " << row << ", " << col << " } 위치 값은 " << road[row][col] << '\n';
-
         if (road[row][col] >= 2) {
             while (!q.empty() && dist[q.front().first][q.front().second] == dist[row][col]) {
                 // cout << "{ " << q.front().first << ", " << q.front().second << " } 거리 = " << dist[q.front().first][q.front().second] << '\n';
@@ -73,10 +72,10 @@ client_info get_client() {
         }
         q.pop();
 
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 4; ++i) {
             int next_row = row + dr[i], next_col = col + dc[i];
             if (is_valid(next_row, next_col) && !visited[next_row][next_col] && road[next_row][next_col] != WALL) {
-                if (i != 0) dist[next_row][next_col] = dist[row][col] + 1;
+                dist[next_row][next_col] = dist[row][col] + 1;
                 visited[next_row][next_col] = true;
                 q.push({next_row, next_col});
             }
@@ -129,7 +128,7 @@ bool move_dest(int dest_r, int dest_c) {
             return false;
         }
 
-        for (int i = 1; i < 5; ++i) {
+        for (int i = 0; i < 4; ++i) {
             int next_row = row + dr[i], next_col = col + dc[i];
             if (is_valid(next_row, next_col) && !visited[next_row][next_col] && road[next_row][next_col] != WALL) {
                 dist[next_row][next_col] = dist[row][col] + 1;
