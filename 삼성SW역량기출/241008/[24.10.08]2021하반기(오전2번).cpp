@@ -1,3 +1,6 @@
+// 소요 시간 - 3시간 16분
+// 문제 링크 - https://www.acmicpc.net/problem/23289
+
 #include <iostream>
 #include <queue>
 #include <vector>
