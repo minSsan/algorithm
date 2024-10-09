@@ -187,17 +187,14 @@ void investing() {
             vector<same_pos_node> tmp_coord;
             rotate_tmp(i, j, DEGREE_90);
             int cnt = get_tmp_pieces();
-            // cout << "{ " << i+1 << ", " << j+1 << " } 기준으로 90도 회전할 때 cnt: " << cnt << '\n';
             tmp_coord.push_back({cnt, DEGREE_90});
 
             rotate_tmp(i, j, DEGREE_180);
             cnt = get_tmp_pieces();
-            // cout << "{ " << i+1 << ", " << j+1 << " } 기준으로 180도 회전할 때 cnt: " << cnt << '\n';
             tmp_coord.push_back({cnt, DEGREE_180});
 
             rotate_tmp(i, j, DEGREE_270);
             cnt = get_tmp_pieces();
-            // cout << "{ " << i+1 << ", " << j+1 << " } 기준으로 270도 회전할 때 cnt: " << cnt << '\n';
             tmp_coord.push_back({cnt, DEGREE_270});
 
             sort(tmp_coord.begin(), tmp_coord.end(), compare_same_pos);
@@ -254,87 +251,7 @@ vector<pair<int, int>> get_linked_pos() {
 
 // 연결된 유물 존재 여부
 bool is_exist_linked() {
-    // init_visited();
-    // for (int i = 0; i < SIZE; ++i) {
-    //     for (int j = 0; j < SIZE; ++j) {
-    //         if (!visited[i][j]) {
-    //             int cnt = 1;
-
-    //             queue<pair<int, int>> q;
-    //             q.push({i, j});
-    //             visited[i][j] = true;
-
-    //             while (!q.empty()) {
-    //                 int row = q.front().first, col = q.front().second;
-    //                 q.pop();
-
-    //                 for (int d = 0; d < 4; ++d) {
-    //                     int next_row = row + dr[d], next_col = col + dc[d];
-    //                     if (is_valid_pos(next_row, next_col) 
-    //                     && !visited[next_row][next_col] 
-    //                     && grid[next_row][next_col] == grid[row][col]) {
-    //                         visited[next_row][next_col] = true;
-    //                         q.push({next_row, next_col});
-    //                         cnt++;
-    //                     }
-    //                 }
-    //             }
-
-    //             if (cnt >= 3) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    // }
-    // return false;
     return get_linked_pos().size() > 0;
-}
-
-int get_pieces() {
-    int sum = 0;
-
-    // init_visited();
-    // for (int i = 0; i < SIZE; ++i) {
-    //     for (int j = 0; j < SIZE; ++j) {
-    //         if (!visited[i][j]) {
-    //             vector<pair<int, int>> pos;
-
-    //             queue<pair<int, int>> q;
-    //             q.push({i, j});
-    //             visited[i][j] = true;
-    //             pos.push_back({i, j});
-
-    //             while (!q.empty()) {
-    //                 int row = q.front().first, col = q.front().second;
-    //                 q.pop();
-
-    //                 for (int d = 0; d < 4; ++d) {
-    //                     int next_row = row + dr[d], next_col = col + dc[d];
-    //                     if (is_valid_pos(next_row, next_col) 
-    //                     && !visited[next_row][next_col] 
-    //                     && grid[next_row][next_col] == grid[row][col]) {
-    //                         visited[next_row][next_col] = true;
-    //                         q.push({next_row, next_col});
-    //                         pos.push_back({next_row, next_col});
-    //                     }
-    //                 }
-    //             }
-
-    //             if (pos.size() >= 3) {
-    //                 for (pair<int, int> p : pos) {
-    //                     grid[p.first][p.second] = 0;
-    //                 }
-    //                 sum += pos.size();
-    //             }
-    //         }
-    //     }
-    // }
-
-    vector<pair<int, int>> pos = get_linked_pos();
-    for (pair<int, int> p : pos) {
-        sum += grid[p.first][p.second];
-    }
-    return sum;
 }
 
 void fill_empty_grid() {
@@ -372,10 +289,15 @@ int main() {
         // print_grid();
         // cout << "================\n";
 
+        vector<pair<int, int>> linked_pos = get_linked_pos();
+
         //* 2. 획득할 유물 없을 때까지 유물 획득
-        while (is_exist_linked()) {
+        while (linked_pos.size() > 0) {
             //* 2-1. 유물 수집 및 삭제
-            ans += get_pieces();
+            ans += linked_pos.size();
+            for (pair<int, int> p : linked_pos) {
+                grid[p.first][p.second] = 0;
+            }
 
             // cout << "=== 3개 이상 연속한 유물을 모두 삭제한 후 ===\n";
             // print_grid();
@@ -387,6 +309,8 @@ int main() {
             // cout << "=== 빈 공간을 채운 후 ===\n";
             // print_grid();
             // cout << "======================\n";
+
+            linked_pos = get_linked_pos();
         }
 
         if (ans == 0) break;
