@@ -213,8 +213,47 @@ void investing() {
     rotate_grid(rotate_info);
 }
 
-vector<pair<int, int>> get_linked_pos() {
-    vector<pair<int, int>> result;
+// 연결된 유물 존재 여부
+bool is_exist_linked() {
+    init_visited();
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            if (!visited[i][j]) {
+                int cnt = 1;
+
+                queue<pair<int, int>> q;
+                q.push({i, j});
+                visited[i][j] = true;
+
+                while (!q.empty()) {
+                    int row = q.front().first, col = q.front().second;
+                    q.pop();
+
+                    for (int d = 0; d < 4; ++d) {
+                        int next_row = row + dr[d], next_col = col + dc[d];
+                        if (is_valid_pos(next_row, next_col) 
+                        && !visited[next_row][next_col] 
+                        && grid[next_row][next_col] == grid[row][col]) {
+                            visited[next_row][next_col] = true;
+                            q.push({next_row, next_col});
+                            cnt++;
+                        }
+                    }
+                }
+
+                if (cnt >= 3) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+int get_pieces() {
+    int sum = 0;
+
     init_visited();
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
@@ -243,96 +282,13 @@ vector<pair<int, int>> get_linked_pos() {
                 }
 
                 if (pos.size() >= 3) {
-                    for (pair<int, int> p : pos)
-                        result.push_back(p);
+                    for (pair<int, int> p : pos) {
+                        grid[p.first][p.second] = 0;
+                    }
+                    sum += pos.size();
                 }
             }
         }
-    }
-    return result;
-}
-
-// 연결된 유물 존재 여부
-bool is_exist_linked() {
-    // init_visited();
-    // for (int i = 0; i < SIZE; ++i) {
-    //     for (int j = 0; j < SIZE; ++j) {
-    //         if (!visited[i][j]) {
-    //             int cnt = 1;
-
-    //             queue<pair<int, int>> q;
-    //             q.push({i, j});
-    //             visited[i][j] = true;
-
-    //             while (!q.empty()) {
-    //                 int row = q.front().first, col = q.front().second;
-    //                 q.pop();
-
-    //                 for (int d = 0; d < 4; ++d) {
-    //                     int next_row = row + dr[d], next_col = col + dc[d];
-    //                     if (is_valid_pos(next_row, next_col) 
-    //                     && !visited[next_row][next_col] 
-    //                     && grid[next_row][next_col] == grid[row][col]) {
-    //                         visited[next_row][next_col] = true;
-    //                         q.push({next_row, next_col});
-    //                         cnt++;
-    //                     }
-    //                 }
-    //             }
-
-    //             if (cnt >= 3) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    // }
-    // return false;
-    return get_linked_pos().size() > 0;
-}
-
-int get_pieces() {
-    int sum = 0;
-
-    // init_visited();
-    // for (int i = 0; i < SIZE; ++i) {
-    //     for (int j = 0; j < SIZE; ++j) {
-    //         if (!visited[i][j]) {
-    //             vector<pair<int, int>> pos;
-
-    //             queue<pair<int, int>> q;
-    //             q.push({i, j});
-    //             visited[i][j] = true;
-    //             pos.push_back({i, j});
-
-    //             while (!q.empty()) {
-    //                 int row = q.front().first, col = q.front().second;
-    //                 q.pop();
-
-    //                 for (int d = 0; d < 4; ++d) {
-    //                     int next_row = row + dr[d], next_col = col + dc[d];
-    //                     if (is_valid_pos(next_row, next_col) 
-    //                     && !visited[next_row][next_col] 
-    //                     && grid[next_row][next_col] == grid[row][col]) {
-    //                         visited[next_row][next_col] = true;
-    //                         q.push({next_row, next_col});
-    //                         pos.push_back({next_row, next_col});
-    //                     }
-    //                 }
-    //             }
-
-    //             if (pos.size() >= 3) {
-    //                 for (pair<int, int> p : pos) {
-    //                     grid[p.first][p.second] = 0;
-    //                 }
-    //                 sum += pos.size();
-    //             }
-    //         }
-    //     }
-    // }
-
-    vector<pair<int, int>> pos = get_linked_pos();
-    for (pair<int, int> p : pos) {
-        sum += grid[p.first][p.second];
     }
     return sum;
 }
