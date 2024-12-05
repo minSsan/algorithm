@@ -85,8 +85,8 @@ void dfs() {
         last = positions.back().first * 5 + positions.back().second + 1;
     }
 
-    for (int i = 1; i <= 25; ++i) {
-        if (i > last && !visited[i]) {
+    for (int i = last+1; i <= 25; ++i) {
+        if (!visited[i]) {
             int r = (i-1) / 5, c = (i-1) % 5;
             positions.push_back({r, c});
             visited[i] = true;
